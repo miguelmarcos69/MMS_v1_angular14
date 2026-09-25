@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pedido para llevar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding ">
+
+  <ion-searchbar placeholder="Buscar Cliente" inputmode="decimal" type="decimal"
+    (ionChange)="onSearchChange($event)"
+    [debounce]="250" ></ion-searchbar>
+  <ion-card *ngIf="busqueda">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row *ngFor="let b of busqueda">
+          <ion-col size="10" class="col">
+            <p>{{b.telefono}}, {{b.nombre}} {{b.apellidos}},
+              {{b.direccion}} {{b.localidad}} </p></ion-col>
+          <ion-col size="2">
+            <ion-fab-button (click)="sele(b)">
+              <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list [inset]="true">
+    <ion-item>
+      <ion-label position="stacked">Nombre</ion-label>
+      <ion-input [clearInput]="true" placeholder="Introduce el nombre"
+        [(ngModel)]="nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Apellidos</ion-label>
+      <ion-input [clearInput]="true" placeholder="Introduce los apellidos"
+        [(ngModel)]="apellidos"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Teléfono</ion-label>
+      <ion-input [clearInput]="true" placeholder="Introduce el teléfono"
+        [(ngModel)]="tlfn"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-button id="guardar" (click)="guardarCliente()" expand="block">
+    Guardar cliente
+  </ion-button>
+
+  <ion-button (click)="siguiente()" expand="block">
+    <ion-icon slot="start" name="add"></ion-icon>
+    Siguiente
+  </ion-button>
+</ion-content>

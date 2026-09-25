@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab4/modIngre"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Modificar Ingredientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+
+    <ion-item>
+      <ion-label>Ingrediente: </ion-label>
+      <ion-input type="text" [(ngModel)]="nombreSelect"></ion-input>
+    </ion-item>
+  </ion-card>
+  <ion-button (click)="guardar()" expand="block">
+    Guardar
+  </ion-button>
+  <ion-button (click)="eliminar()" expand="block">
+    eliminar
+  </ion-button>
+</ion-content>

@@ -1,0 +1,99 @@
+<ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+  <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+
+
+
+<ion-grid>
+  <ion-row id="centro">
+    <ion-col size="3">
+    </ion-col>
+    <ion-col size="6" style="display: flex;justify-content: center;">
+      <ion-avatar>
+        <img *ngIf="prev" id='pev' [src]="url+'/proyectoDAW'+previsualizacion"
+          alt="">
+        <img *ngIf="prev2" [src]="previsualizacion">
+      </ion-avatar>
+    </ion-col>
+    <ion-col size="3">
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+
+
+
+<ion-list>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Rol desempeñado: </ion-label>
+
+      <ion-select [value]="usuario.rol" [(ngModel)]="selRol" disabled="true">
+        <ion-select-option value="trab">Trabajador</ion-select-option>
+        <ion-select-option value="admin">Aministrador</ion-select-option>
+      </ion-select>
+
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Id: </ion-label>
+      <ion-input type="text"
+        [(ngModel)]="usuario.id" disabled="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Nombre: </ion-label>
+      <ion-input type="text"
+        [(ngModel)]="selNombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Contraseña: </ion-label>
+      <ion-input type="password"
+        [(ngModel)]="selContra"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Repetir Contraseña: </ion-label>
+      <ion-input type="password"
+        [(ngModel)]="selContra2"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Email: </ion-label>
+      <ion-input type="email" [(ngModel)]="selEmail"></ion-input>
+    </ion-item>
+
+    <ion-item (click)="showPicker=!showPicker">
+      <ion-label>Fecha nacimiento</ion-label>
+      <ion-text slot="end">
+        {{usuario.fechaNac}}
+      </ion-text>
+    </ion-item>
+
+    <ion-datetime *ngIf="showPicker" [value]="dateValue" #fecha
+      (ionChange)='dateChange(fecha.value)'
+      [showDefaultButtons]="true"
+      doneText="Aceptar"
+      cancelText="Cancelar">
+    </ion-datetime>
+
+    <ion-item>
+      <ion-label position="stacked">Localidad </ion-label>
+      <ion-input type="text" [(ngModel)]="selLocal"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Ruta imagen </ion-label>
+      <ion-input type="text" [(ngModel)]="selImg"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Observaciones: </ion-label>
+      <ion-textarea [autoGrow]="true" [(ngModel)]="selObs"></ion-textarea>
+    </ion-item>
+
+  </ion-list>
+  <ion-button expand="block">
+    Modificar Foto de perfil
+    <ion-input type="file"
+      (change)="capturarFile($event)"></ion-input>
+  </ion-button>
+  <ion-button expand="block" (click)="guardar()">
+    <ion-icon name="add"></ion-icon>
+    Guardar
+  </ion-button>

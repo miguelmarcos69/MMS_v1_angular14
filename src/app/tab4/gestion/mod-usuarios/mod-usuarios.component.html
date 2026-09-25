@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Usuarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" id="fondo">
+
+
+
+  <ion-searchbar placeholder="Buscar Cliente" inputmode="decimal" type="decimal"
+    (ionChange)="onSearchChange($event)"
+    [debounce]="250"></ion-searchbar>
+  <div *ngIf="busqueda">
+
+    <ion-card *ngFor="let b of busqueda" (click)="modificar(b.id)">
+      <ion-header>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="4">
+              <ion-avatar>
+                <img [src]="url+'/proyectoDAW'+b.img" />
+              </ion-avatar>
+            </ion-col>
+            <ion-col size="8">
+              <ion-title>{{b.nombre}} {{b.apellidos}}</ion-title>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-header>
+      <ion-card-content>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="6">Fecha Nacimiento</ion-col>
+            <ion-col size="6">{{b.fechaNac}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">ID cliente</ion-col>
+            <ion-col size="6">{{b.id}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">Dirección</ion-col>
+            <ion-col size="6">{{b.direccion}} Num {{b.num}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">Localidad</ion-col>
+            <ion-col size="6">{{b.localidad}}</ion-col>
+          </ion-row>
+
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="!busqueda">
+
+    <ion-card *ngFor="let cli of usuarios" (click)="modificar(cli.id)">
+      <ion-header>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="4">
+              <ion-avatar>
+                <img [src]="url+'/proyectoDAW'+cli.img" />
+              </ion-avatar>
+            </ion-col>
+            <ion-col size="8">
+              <ion-title>{{cli.nombre}} {{cli.apellidos}}</ion-title>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-header>
+      <ion-card-content>
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="6">Fecha Nacimiento</ion-col>
+            <ion-col size="6">{{cli.fechaNac}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">ID Usuario</ion-col>
+            <ion-col size="6">{{cli.id}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">Rol</ion-col>
+            <ion-col size="6">{{cli.rol}} </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">Población</ion-col>
+            <ion-col size="6">{{cli.poblacion}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">Email</ion-col>
+            <ion-col size="6">{{cli.email}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6">Observaciones</ion-col>
+            <ion-col size="6">{{cli.obs}}</ion-col>
+          </ion-row>
+
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

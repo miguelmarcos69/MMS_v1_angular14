@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button>
+      </ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Modificar ingredientes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" id="fondo">
+  <ion-grid fixed>
+    <ion-list>
+
+      <ion-item *ngFor="let ing of ingre" (click)="mod(ing.id)">
+        <ion-grid fixed>
+          <ion-row>
+            <ion-col size="12">{{ing.nombre}}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+    </ion-list>
+  </ion-grid>
+
+</ion-content>

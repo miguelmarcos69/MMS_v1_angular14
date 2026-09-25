@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear un nuevo usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" id="fondo">
+
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Rol desempeñado: </ion-label>
+
+      <ion-select value="trab" [(ngModel)]="selRol">
+        <ion-select-option value="trab">Trabajador</ion-select-option>
+        <ion-select-option value="admin">Aministrador</ion-select-option>
+      </ion-select>
+
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" required='true'>Nombre: </ion-label>
+      <ion-input type="text"
+        [(ngModel)]="selNombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" required='true'>Apellidos: </ion-label>
+      <ion-input type="text"
+        [(ngModel)]="selApe"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" required='true'>Contraseña: </ion-label>
+      <ion-input type="password"
+        [(ngModel)]="selContra"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" required='true'>Repetir Contraseña:
+      </ion-label>
+      <ion-input type="password"
+        [(ngModel)]="selContra2"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked" required='true'>Localidad </ion-label>
+      <ion-input type="text" [(ngModel)]="selLocal"></ion-input>
+    </ion-item>
+    <ion-item (click)="showPicker=!showPicker">
+      <ion-label>Fecha nacimiento</ion-label>
+      <ion-text slot="end">
+        {{dia}}
+      </ion-text>
+    </ion-item>
+
+    <ion-datetime *ngIf="showPicker" [value]="dateValue" #fecha
+      (ionChange)='dateChange(fecha.value)'
+      [showDefaultButtons]="true"
+      doneText="Aceptar"
+      cancelText="Cancelar">
+    </ion-datetime>
+    <ion-item>
+      <ion-label position="stacked" required='true'>Email </ion-label>
+      <ion-input type="email" [(ngModel)]="selEmail"></ion-input>
+    </ion-item>
+
+    <ion-button (click)="guardar()" expand="block">
+      Guardar
+    </ion-button>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,46 @@
+
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Modificar cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Nombre: </ion-label>
+      <ion-input type="text"
+        [(ngModel)]="selNombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Apellido: </ion-label>
+      <ion-input type="text" [(ngModel)]="selApe"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Dirección: </ion-label>
+      <ion-input type="text" [(ngModel)]="selDire"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Número</ion-label>
+      <ion-input type="text" [(ngModel)]="selNum"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Localidad </ion-label>
+      <ion-input type="text" [(ngModel)]="selLocal"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Teléfono: </ion-label>
+      <ion-input type="text" [(ngModel)]="selTel"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button (click)="guardar()" expand="block" fill="clear" shape="round">
+    Guardar
+  </ion-button>
+
+
+</ion-content>

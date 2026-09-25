@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Asignar mesas</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-padding" id="fondo">
+  <ion-fab vertical="top" horizontal="right" slot="fixed" (click)="guardar()">
+    <ion-fab-button>
+      <ion-icon name="save-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-item>
+    <ion-label></ion-label>
+  </ion-item>
+  <div *ngFor="let mesa of mesas;let i= index">
+
+    <ion-item *ngIf="mesa.accion===null">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4">
+            <p *ngIf="mesa.nombreMesa!==null">{{mesa.nombreMesa}}</p>
+            <p *ngIf="mesa.nombreMesa===null">{{mesa.numTel}}</p>
+          </ion-col>
+
+          <ion-col size="3">
+            <p>{{usuarios[mesa.idusu-1].nombre}}</p>
+          </ion-col>
+          <ion-col size="5">
+            <ion-item>
+              <ion-select [(ngModel)]="usuSelect[mesa.id]">
+                <ion-select-option *ngFor="let usu of usuarios"
+                  [value]="usu.id">{{usu.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+
+    </ion-item>
+
+    <ion-item *ngIf="mesa.accion==='llevar'" color="dark">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4">
+            <p *ngIf="mesa.nombreMesa!==null">{{mesa.nombreMesa}}</p>
+            <p *ngIf="mesa.nombreMesa===null">{{mesa.numTel}}</p>
+          </ion-col>
+
+          <ion-col size="3">
+            <p>{{usuarios[mesa.idusu-1].nombre}}</p>
+          </ion-col>
+          <ion-col size="5">
+            <ion-item color="dark">
+              <ion-select [(ngModel)]="usuSelect[mesa.id]">
+                <ion-select-option *ngFor="let usu of usuarios"
+                  [value]="usu.id">{{usu.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+
+    </ion-item>
+
+    <ion-item *ngIf="mesa.accion==='domi'" color="medium">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4">
+            <p *ngIf="mesa.nombreMesa!==null">{{mesa.nombreMesa}}</p>
+            <p *ngIf="mesa.nombreMesa===null">{{mesa.numTel}}</p>
+          </ion-col>
+
+          <ion-col size="3">
+            <p>{{usuarios[mesa.idusu-1]['nombre']}}</p>
+          </ion-col>
+          <ion-col size="5">
+
+            <ion-item color="medium">
+              <ion-select [(ngModel)]="usuSelect[mesa.id]">
+                <ion-select-option *ngFor="let usu of usuarios"
+                  [value]="usu.id">{{usu.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+
+
+    </ion-item>
+  </div>
+
+
+</ion-content>

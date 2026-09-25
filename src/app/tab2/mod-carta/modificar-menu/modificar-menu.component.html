@@ -1,0 +1,133 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Modificar</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
+  <ion-grid>
+    <ion-row id="centro">
+      <ion-col size="3">
+      </ion-col>
+      <ion-col size="6">
+        <img src="../../../../assets/logos/logo2.png" alt="">
+      </ion-col>
+      <ion-col size="3">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list *ngIf="tipo==='platos'">
+
+    <ion-item>
+      <ion-label position="stacked">Nombre del plato</ion-label>
+      <ion-input [clearInput]="true" [(ngModel)]="nomSelec"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-grid>
+
+        <ion-row>
+          <ion-chip *ngFor="let ing of dato.ingredientes" color="dark">
+            <ion-label>{{ing.nombre}}</ion-label>
+            <ion-icon name="trash-outline" (click)="onClick(ing,dato.id)"></ion-icon>
+          </ion-chip>
+
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Añadir ingredientes</ion-label>
+
+      <ion-select placeholder="Introduce ingredientes"
+        [(ngModel)]="ingSelec"
+        [multiple]="true"
+        (ngModelChange)="anadirIng()">
+        <ion-select-option *ngFor="let ing of ingredientes"
+          [value]="ing.id" selected>{{ing.nombre}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Precio</ion-label>
+      <ion-input type="number" [clearInput]="true"
+        [(ngModel)]="precSelec" [value]="dato.precio"></ion-input>
+    </ion-item>
+
+
+    <img *ngIf="prev" [src]="url + '/proyectoDAW/'+previsualizacion" id='pev'>
+    <img *ngIf="prev2" [src]="previsualizacion" id='pev'>
+    <ion-button expand="block">
+      Modificar Foto &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <ion-input type="file"
+        (change)="capturarFile($event)"></ion-input>
+    </ion-button>
+    <ion-button id="open-modal22" expand="block">Añadir ingrediente</ion-button>
+    <ion-button (click)="modificar()" expand="block">
+      Modificar plato
+    </ion-button>
+
+  </ion-list>
+
+  <ion-list *ngIf="tipo==='bebida'">
+
+    <ion-item>
+      <ion-label position="stacked">Nombre de la bebida</ion-label>
+      <ion-input [clearInput]="true" [(ngModel)]="nomSelec"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Precio</ion-label>
+      <ion-input type="number" [clearInput]="true"
+        [(ngModel)]="precSelec"></ion-input>
+    </ion-item>
+
+
+    <img *ngIf="prev" [src]="url + '/proyectoDAW/'+ previsualizacion" id='pev'>
+    <img *ngIf="prev2" [src]="previsualizacion" id='pev'>
+    <ion-button expand="block">
+      Modificar Foto &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <ion-input type="file"
+        (change)="capturarFile($event)"></ion-input>
+    </ion-button>
+    <ion-button (click)="modificar()" expand="block">
+      Modificar bebida
+    </ion-button>
+  </ion-list>
+
+
+
+  <ion-modal trigger="open-modal22" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Añadir ingrediente</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirm()" [strong]="true">
+              <ion-icon name="checkmark-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label position="stacked">Introdice el nomnbre el ingrediente</ion-label>
+          <ion-input type="text" placeholder="Añade el ingrediente"
+            [(ngModel)]="name"></ion-input>
+        </ion-item>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

@@ -1,0 +1,65 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Estadísticas</ion-title>
+  </ion-toolbar>
+
+
+</ion-header>
+<ion-content>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Plato más vendido</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <canvas baseChart width="380" height="400"
+            [type]="'pie'"
+            [datasets]="pieChartDatasets"
+            [labels]="pieChartLabels"
+            [options]="pieChartOptions"
+            [plugins]="pieChartPlugins"
+            [legend]="pieChartLegend">
+          </canvas>
+
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Volumen de venta por día</ion-card-title>
+        </ion-card-header>
+        <div style="display: block;">
+          <canvas baseChart width="400" height="400"
+            [type]="'line'"
+            [data]="lineChartData"
+            [options]="lineChartOptions"
+            [legend]="lineChartLegend">
+          </canvas>
+        </div>
+
+</ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Volumen de venta de cada usuario al día</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <canvas baseChart
+        width="400" height="400"
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [type]="'bar'">
+      </canvas>
+
+    </ion-card-content>
+  </ion-card>
+
+
+
+</ion-content>

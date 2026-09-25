@@ -1,0 +1,233 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-back-button>Mesa</ion-back-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" id="fondo">
+
+  <ion-grid>
+    <ion-row id="centro">
+      <ion-col size="3">
+      </ion-col>
+      <ion-col size="6">
+        <img src="../../../../assets/logos/logo2.png" alt="">
+      </ion-col>
+      <ion-col size="3">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngIf="data.llevar">
+    <ion-item>
+      <ion-label position="stacked">Nombre y Apellidos</ion-label>
+      <ion-input [disabled]="true">{{data.nombre}} {{data.apellidos}}</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Numero tlf cliente</ion-label>
+      <ion-input [disabled]="true"> {{data.numTel}} </ion-input>
+    </ion-item>
+    <ion-item *ngIf="data.accion==='domi'">
+      <ion-label>Dirección</ion-label>
+      <ion-textarea [disabled]="true"> {{data.direccion}} </ion-textarea>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-list *ngIf="!data.llevar">
+    <ion-item>
+      <ion-label position="stacked"> Número de mesa </ion-label>
+      <ion-input [disabled]="true"> {{data.nombreMesa}} </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Comensales</ion-label>
+      <ion-input [(ngModel)]="ocupantes" type="number"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-card>
+
+    <ion-card-header>
+      <ion-card-title>Bebida</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="data.bebida!==''">
+      <ion-row *ngFor="let b of data.bebida;index as i">
+        <ion-col class="centro" size="8">
+          <p>{{b.nombre}}</p>
+        </ion-col>
+        <ion-col size="2" class="centro">
+          <p>{{b.precio}}</p>
+        </ion-col>
+        <ion-col class="centro" size="2">
+          <ion-tab-button (click)="eliminarBebida(b,i)">
+            <ion-icon name="trash-outline"></ion-icon>
+            <ion-label position="stacked">Eliminar</ion-label>
+          </ion-tab-button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+
+    <ion-card-header>
+      <ion-card-title>Platos
+
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="data.platos!==''">
+
+      <ion-row *ngFor="let p of data.platos;index as i">
+        <ion-col class="centro" size="8">
+          <p>{{p.nombrePlato}}</p>
+        </ion-col>
+        <ion-col size="2" class="centro">
+          <p>{{p.precio}}</p>
+        </ion-col>
+        <ion-col class="centro" size="2">
+          <ion-tab-button (click)="eliminar(p,i)">
+            <ion-icon name="trash-outline"></ion-icon>
+            <ion-label position="stacked">Eliminar</ion-label>
+          </ion-tab-button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+    <ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="9">Total</ion-col>
+          <ion-col size="3">{{total}}€</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-card>
+
+
+  <ion-button expand="block" id="open-modalM">Modificar</ion-button>
+  <!--
+  <ion-button expand="block" (click)="guardarLlevar()"
+    *ngIf="data.accion ==='llevar'">
+    Guardar
+  </ion-button>
+  <ion-button expand="block" (click)="guardarDomi()"
+    *ngIf="data.accion==='domi'">
+    Guardar
+  </ion-button>
+
+  <ion-button expand="block" (click)="guardar()" *ngIf="!data.llevar">Guardar</ion-button>-->
+  <ion-button expand="block" (click)="ticket()">
+    Generar ticket
+
+  </ion-button>
+
+
+  <ion-modal trigger="open-modalM">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel2()">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Productos</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirm2()" [strong]="true"><ion-icon
+                name="checkmark-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+
+        </ion-toolbar>
+        <ion-segment (ionChange)="segmentChanged($event)" value="platos">
+          <ion-segment-button value="platos">
+            Platos
+          </ion-segment-button>
+          <ion-segment-button value="bebida">
+            Bebidas
+          </ion-segment-button>
+        </ion-segment>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <div *ngIf="segment==='bebida'">
+          <ion-card *ngFor="let b of bebida;index as i" id="{{b.id}}"
+            style="background-image: linear-gradient(rgba(0, 0, 0, 0.456),
+            rgba(0, 0, 0, 0.358)), url('{{url}}/proyectoDAW{{b.img}}');"
+            class="fondoImagen">
+            <ion-card-header style="color: #fff;">
+
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="10">
+                    <ion-card-title style="color: #fff;">{{b.nombre}} - {{b.precio}}€</ion-card-title>
+                  </ion-col>
+                  <ion-col size="2">
+                    <ion-fab-button (click)="anadirb(b)">
+                      <ion-icon style="color: #fff;" name="add"></ion-icon>
+                    </ion-fab-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-header>
+            <ion-card-content>
+            </ion-card-content>
+          </ion-card>
+        </div>
+        <div *ngIf="segment==='platos'">
+
+
+          <ion-card *ngFor="let p of platos" id="{{p.id}}"
+            style="background-image: linear-gradient(rgba(0, 0, 0, 0.456),
+            rgba(0, 0, 0, 0.358)), url('{{url}}/proyectoDAW{{p.img}}');"
+            class="fondoImagen">
+
+            <ion-card-header style="color: #fff;">
+
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="8">
+                    <ion-card-title style="color:#fff">{{p.nombrePlato}}
+                      {{p.precio}}€</ion-card-title>
+                  </ion-col>
+                  <ion-col size="4">
+                    <ion-fab-button (click)="anadir(p)">
+                      <ion-icon name="add"></ion-icon>
+                    </ion-fab-button>
+
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+              <ion-card-subtitle style="color: #fff;">Ingredientes:</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-grid>
+
+                <ion-row>
+                  <ion-chip *ngFor="let ing of p.ingredientes">
+                    <ion-label style="color: #fff;" position="stacked">{{ing.nombre}}</ion-label>
+                    <ion-icon style="color: #fff;" name="trash-outline"></ion-icon>
+                  </ion-chip>
+
+                </ion-row>
+              </ion-grid>
+
+
+            </ion-card-content>
+
+          </ion-card>
+        </div>
+
+      </ion-content>
+
+    </ng-template>
+  </ion-modal>
+
+
+</ion-content>

@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mofificar usuario</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding" id="fondo">
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Rol desempeñado: </ion-label>
+
+      <ion-select [value]="usuario.rol" [(ngModel)]="selRol">
+        <ion-select-option value="trab">Trabajador</ion-select-option>
+        <ion-select-option value="admin">Aministrador</ion-select-option>
+      </ion-select>
+
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Id: </ion-label>
+      <ion-input type="text"
+        [(ngModel)]="usuario.id" disabled="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Nombre: </ion-label>
+      <ion-input type="text"
+        [(ngModel)]="selNombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Contraseña: </ion-label>
+      <ion-input type="password"
+        [(ngModel)]="selContra"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Repetir Contraseña: </ion-label>
+      <ion-input type="password"
+        [(ngModel)]="selContra2"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Email: </ion-label>
+      <ion-input type="email" [(ngModel)]="selEmail"></ion-input>
+    </ion-item>
+
+    <ion-item (click)="showPicker=!showPicker">
+      <ion-label>Fecha nacimiento</ion-label>
+      <ion-text slot="end">
+        {{usuario.fechaNac}}
+      </ion-text>
+    </ion-item>
+
+    <ion-datetime *ngIf="showPicker" [value]="dateValue" #fecha
+      (ionChange)='dateChange(fecha.value)'
+      [showDefaultButtons]="true"
+      doneText="Aceptar"
+      cancelText="Cancelar">
+    </ion-datetime>
+
+    <ion-item>
+      <ion-label position="stacked">Localidad </ion-label>
+      <ion-input type="text" [(ngModel)]="selLocal"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Ruta imagen </ion-label>
+      <ion-input type="text" [(ngModel)]="selImg"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Observaciones: </ion-label>
+      <ion-textarea [autoGrow]="true" [(ngModel)]="selObs"></ion-textarea>
+    </ion-item>
+
+    <ion-button (click)="guardar()" expand="block">
+      Guardar
+    </ion-button>
+  </ion-list>
+
+
+</ion-content>

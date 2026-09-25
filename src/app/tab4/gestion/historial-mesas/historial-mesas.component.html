@@ -1,0 +1,368 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Historial mesas</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-searchbar placeholder="Buscar Cliente" inputmode="decimal" type="decimal"
+    (ionChange)="onSearchChange($event)"
+    [debounce]="250"></ion-searchbar>
+
+  <ion-item (click)="showPicker=!showPicker">
+    <ion-label>Fecha</ion-label>
+    <ion-text slot="end">
+      {{fecha}}
+    </ion-text>
+  </ion-item>
+
+  <ion-datetime *ngIf="showPicker" [value]="dateValue" #fecha
+    (ionChange)='dateChange(fecha.value)'
+    [showDefaultButtons]="true"
+    doneText="Aceptar"
+    cancelText="Cancelar">
+  </ion-datetime>
+  <ion-segment (ionChange)="segmentChanged($event)" value="mesas">
+    <ion-segment-button value="llevar">
+      <ion-label>LLevar</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="mesas">
+      <ion-label>Mesas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="domi">
+      <ion-label>Domicilio</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div *ngIf="busqueda">
+
+
+
+    <div *ngFor="let car of busqueda">
+
+
+      <div *ngIf="fecha===car.dia">
+        <ion-card *ngIf=" segment==='llevar' &&
+          car.accion ==='llevar'" color="dark">
+          <ion-card-header>
+
+            <ion-card-title>{{car.numTel}}
+
+              <ion-icon name="car-sport-outline"></ion-icon>
+            </ion-card-title>
+            <ion-card-subtitle>{{car.nombre}} {{car.apellidos}}</ion-card-subtitle>
+            <ion-card-subtitle>{{car.dia}}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="8">Idmesa</ion-col>
+                <ion-col size="4">{{car.IDmesa}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="8">Usuario asignado</ion-col>
+                <ion-col size="4">{{car.idUsu.nombre}}</ion-col>
+              </ion-row>
+            </ion-grid>
+            <h1>Bebidas</h1>
+            <ion-grid fixed>
+              <ion-row *ngFor="let b of car.bebida">
+                <ion-col size="8">{{b.nombre}}</ion-col>
+                <ion-col size="4">{{b.precio}} €</ion-col>
+              </ion-row>
+            </ion-grid>
+            <h1>Platos</h1>
+
+            <ion-grid fixed>
+              <ion-row *ngFor="let platos of car.platos">
+                <ion-col size="8">{{platos.nombrePlato }}</ion-col>
+                <ion-col size="4">{{platos.precio }} €</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+          <ion-item color="light">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="8">
+                  <ion-label>Toltal sin iva</ion-label>
+                </ion-col>
+                <ion-col size="4">{{car.precioTotal}} €</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-card>
+        <div *ngIf="fecha===car.dia">
+          <ion-card *ngIf="segment==='mesas' &&
+            (car.accion===null|| car.accion==='') && car.nombreMesa!==null">
+            <ion-card-header>
+
+              <ion-card-title>{{car.nombreMesa}}
+                <ion-icon name="restaurant-outline"></ion-icon>
+              </ion-card-title>
+              <ion-card-subtitle>{{car.ocupantes}} ocupantes</ion-card-subtitle>
+              <ion-card-subtitle>{{car.dia}}</ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content>
+              <ion-grid fixed>
+                <ion-row>
+                  <ion-col size="8">Idmesa</ion-col>
+                  <ion-col size="4">{{car.IDmesa}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="8">Usuario asignado</ion-col>
+                  <ion-col size="4">{{car.idUsu.nombre}}</ion-col>
+                </ion-row>
+              </ion-grid>
+              <h1>Bebidas</h1>
+              <ion-grid fixed>
+                <ion-row *ngFor="let b of car.bebida">
+                  <ion-col size="8">{{b.nombre}}</ion-col>
+                  <ion-col size="4">{{b.precio}} €</ion-col>
+                </ion-row>
+              </ion-grid>
+              <h1>Platos</h1>
+
+              <ion-grid fixed>
+                <ion-row *ngFor="let platos of car.platos">
+                  <ion-col size="8">{{platos.nombrePlato }}</ion-col>
+                  <ion-col size="4">{{platos.precio }} €</ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+            <ion-item color="light">
+              <ion-grid fixed>
+                <ion-row>
+                  <ion-col size="8">
+                    <ion-label>Toltal sin iva</ion-label>
+                  </ion-col>
+                  <ion-col size="4">{{car.precioTotal}} €</ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+          </ion-card>
+        </div>
+
+        <div *ngIf="fecha===car.dia">
+          <ion-card *ngIf=" segment==='domi' &&
+            car.accion ==='domi'" color="medium">
+            <ion-card-header>
+
+              <ion-card-title>{{car.numTel}}
+                <ion-icon name="home-outline"></ion-icon>
+              </ion-card-title>
+              <ion-card-subtitle>{{car.nombre}} {{car.apellidos}}</ion-card-subtitle>
+              <ion-card-subtitle>{{car.dia}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-grid fixed>
+                <ion-row>
+                  <ion-col size="8">Idmesa</ion-col>
+                  <ion-col size="4">{{car.IDmesa}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="8">Usuario asignado</ion-col>
+                  <ion-col size="4">{{car.idUsu.nombre}}</ion-col>
+                </ion-row>
+              </ion-grid>
+              <h1>Bebidas</h1>
+              <ion-grid fixed>
+                <ion-row *ngFor="let b of car.bebida">
+                  <ion-col size="8">{{b.nombre}}</ion-col>
+                  <ion-col size="4">{{b.precio}} €</ion-col>
+                </ion-row>
+              </ion-grid>
+              <h1>Platos</h1>
+
+              <ion-grid fixed>
+                <ion-row *ngFor="let platos of car.platos">
+                  <ion-col size="8">{{platos.nombrePlato }}</ion-col>
+                  <ion-col size="4">{{platos.precio }} €</ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+            <ion-item color="light">
+              <ion-grid fixed>
+                <ion-row>
+                  <ion-col size="8">
+                    <ion-label>Toltal sin iva</ion-label>
+                  </ion-col>
+                  <ion-col size="4">{{car.precioTotal}} €</ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+          </ion-card>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div *ngIf="!busqueda">
+    <div *ngFor="let car of datos">
+
+
+      <div *ngIf="fecha===car.dia">
+        <ion-card *ngIf=" segment==='llevar' &&
+          car.accion ==='llevar'" color="dark">
+          <ion-card-header>
+
+            <ion-card-title>{{car.numTel}}
+
+              <ion-icon name="car-sport-outline"></ion-icon>
+            </ion-card-title>
+            <ion-card-subtitle>{{car.nombre}} {{car.apellidos}}</ion-card-subtitle>
+            <ion-card-subtitle>{{car.dia}}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="8">Idmesa</ion-col>
+                <ion-col size="4">{{car.IDmesa}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="8">Usuario asignado</ion-col>
+                <ion-col size="4">{{car.idUsu.nombre}}</ion-col>
+              </ion-row>
+            </ion-grid>
+            <h1>Bebidas</h1>
+            <ion-grid fixed>
+              <ion-row *ngFor="let b of car.bebida">
+                <ion-col size="8">{{b.nombre}}</ion-col>
+                <ion-col size="4">{{b.precio}} €</ion-col>
+              </ion-row>
+            </ion-grid>
+            <h1>Platos</h1>
+
+            <ion-grid fixed>
+              <ion-row *ngFor="let platos of car.platos">
+                <ion-col size="8">{{platos.nombrePlato }}</ion-col>
+                <ion-col size="4">{{platos.precio }} €</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+          <ion-item color="light">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="8">
+                  <ion-label>Toltal sin iva</ion-label>
+                </ion-col>
+                <ion-col size="4">{{car.precioTotal}} €</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-card>
+      </div>
+
+      <div *ngIf="fecha===car.dia">
+        <ion-card *ngIf="segment==='mesas' &&
+          (car.accion===null|| car.accion==='') && car.nombreMesa!==null">
+          <ion-card-header>
+
+            <ion-card-title>{{car.nombreMesa}}
+              <ion-icon name="restaurant-outline"></ion-icon>
+            </ion-card-title>
+            <ion-card-subtitle>{{car.ocupantes}} ocupantes</ion-card-subtitle>
+            <ion-card-subtitle>{{car.dia}}</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="8">Idmesa</ion-col>
+                <ion-col size="4">{{car.IDmesa}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="8">Usuario asignado</ion-col>
+                <ion-col size="4">{{car.idUsu.nombre}}</ion-col>
+              </ion-row>
+            </ion-grid>
+            <h1>Bebidas</h1>
+            <ion-grid fixed>
+              <ion-row *ngFor="let b of car.bebida">
+                <ion-col size="8">{{b.nombre}}</ion-col>
+                <ion-col size="4">{{b.precio}} €</ion-col>
+              </ion-row>
+            </ion-grid>
+            <h1>Platos</h1>
+
+            <ion-grid fixed>
+              <ion-row *ngFor="let platos of car.platos">
+                <ion-col size="8">{{platos.nombrePlato }}</ion-col>
+                <ion-col size="4">{{platos.precio }} €</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+          <ion-item color="light">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="8">
+                  <ion-label>Toltal sin iva</ion-label>
+                </ion-col>
+                <ion-col size="4">{{car.precioTotal}} €</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-card>
+      </div>
+
+      <div *ngIf="fecha===car.dia">
+        <ion-card *ngIf=" segment==='domi' &&
+          car.accion ==='domi'" color="medium">
+          <ion-card-header>
+
+            <ion-card-title>{{car.numTel}}
+              <ion-icon name="home-outline"></ion-icon>
+            </ion-card-title>
+            <ion-card-subtitle>{{car.nombre}} {{car.apellidos}}</ion-card-subtitle>
+            <ion-card-subtitle>{{car.dia}}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="8">Idmesa</ion-col>
+                <ion-col size="4">{{car.IDmesa}}</ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="8">Usuario asignado</ion-col>
+                <ion-col size="4">{{car.idUsu.nombre}}</ion-col>
+              </ion-row>
+            </ion-grid>
+            <h1>Bebidas</h1>
+            <ion-grid fixed>
+              <ion-row *ngFor="let b of car.bebida">
+                <ion-col size="8">{{b.nombre}}</ion-col>
+                <ion-col size="4">{{b.precio}} €</ion-col>
+              </ion-row>
+            </ion-grid>
+            <h1>Platos</h1>
+
+            <ion-grid fixed>
+              <ion-row *ngFor="let platos of car.platos">
+                <ion-col size="8">{{platos.nombrePlato }}</ion-col>
+                <ion-col size="4">{{platos.precio }} €</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+          <ion-item color="light">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="8">
+                  <ion-label>Toltal sin iva</ion-label>
+                </ion-col>
+                <ion-col size="4">{{car.precioTotal}} €</ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-card>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>

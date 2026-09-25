@@ -1,0 +1,14 @@
+<ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+  <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+
+<ion-button (click)="historial()" expand="block">Historial mesas</ion-button>
+<ion-button (click)="estadisticas()" expand="block">Estadisticas</ion-button>
+<ion-button *ngIf="usuario.rol==='admin'"(click)="anaUsu()" expand="block">Añadir
+  usuarios</ion-button>
+<ion-button *ngIf="usuario.rol==='admin'" (click)="modUsu()" expand="block">Modificar
+  usuarios</ion-button>
+<ion-button (click)="modClientes()" expand="block">Modificar Clientes</ion-button>
+<ion-button (click)="modIngre()" expand="block">Modificar ingredientes</ion-button>
+<ion-button *ngIf="usuario.rol==='admin'"(click)="asignarMesas()"
+  expand="block"> Asignar mesas</ion-button>

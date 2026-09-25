@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ticket</ion-title>
+  </ion-toolbar>
+  <ion-progress-bar type="indeterminate" id="load"></ion-progress-bar>
+</ion-header>
+<ion-content class="ion-padding">
+
+
+  <ion-fab slot="fixed" vertical="top" horizontal="start">
+    <ion-fab-button (click)="pagado()">
+      <ion-icon name="journal-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div id="contenido">
+
+    <ion-grid>
+      <ion-row id="centro">
+        <ion-col size="3">
+        </ion-col>
+        <ion-col size="6">
+          <img src="../../../../assets/logos/logo2.png" alt="">
+        </ion-col>
+        <ion-col size="3">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="6">Número ticket:</ion-col>
+        <ion-col size="6">{{mesa.id}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">Tipo:</ion-col>
+        <ion-col size="6">{{mesa.accion}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">Le atendió:</ion-col>
+        <ion-col size="6">{{usuario.nombre}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">Fecha</ion-col>
+        <ion-col size="6">{{dia}}</ion-col>
+      </ion-row>
+    </ion-grid>
+    <!--Cabecera-->
+
+    <ion-grid fixed>
+      <ion-row id="bordes">
+        <ion-col size="4">
+          <p>Producto</p>
+        </ion-col>
+        <ion-col size="4">
+          <p>Cantidad</p>
+        </ion-col>
+        <ion-col size="4">
+          <p>Precio</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!--Contenido-->
+    <div *ngFor=" let m of bebida">
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="4">
+            <p>{{m.nombre}}</p>
+          </ion-col>
+          <ion-col size="4">
+            <p>X {{m.cantidad}}</p>
+          </ion-col>
+          <ion-col size="4">
+            <p>{{m.precio}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </div>
+    <div *ngFor=" let m of platos">
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="4">
+            <p>{{m.nombre}}</p>
+          </ion-col>
+          <ion-col size="4">
+            <p>X {{m.cantidad}}</p>
+          </ion-col>
+          <ion-col size="4">
+            <p>{{m.precio}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </div>
+    <!--Total-->
+    <ion-grid fixed id="bordes">
+      <ion-row>
+        <ion-col size="8" pull="2">Facturación neta</ion-col>
+        <ion-col size="4">{{mesa.precioTotal}}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="8" pull="2">10% IVA</ion-col>
+        <ion-col size="4">{{iva}}</ion-col>
+      </ion-row>
+      <ion-row id="bordes">
+        <ion-col size="8" pull="2">Total</ion-col>
+        <ion-col size="4">{{total}}</ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+</ion-content>
